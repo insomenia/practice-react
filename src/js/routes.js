@@ -13,8 +13,8 @@ const routes = [
   { path: "/users/sign_in/", component: LoginPage },
   { path: "/users/sign_up/", component: SignUpPage },
   { path: "/cart/", component: CartPage},
-  { path: "/mypage/", component: MyPage},
-  { path: "/mypage/my_orders/", component: MyOrdersPage},
+  { path: "/users/mypage/", component: MyPage},
+  { path: "/users/my_orders/", component: MyOrdersPage},
   { path: "(.*)", component: NotFoundPage }
 ];
 

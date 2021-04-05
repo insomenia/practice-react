@@ -1,9 +1,13 @@
 import React from 'react';
-import { Page, Navbar, Block } from 'framework7-react';
+import { Page, Navbar, Block, NavLeft, Link } from 'framework7-react';
 
 const Cart = () => (
   <Page>
-    <Navbar title="Not found" backLink="Back" />
+    <Navbar sliding={false}>
+      <NavLeft>
+        <Link icon='las la-bars' panelOpen="left" />
+      </NavLeft>
+    </Navbar>
     <Block strong>
       <p>Cart</p>
     </Block>
