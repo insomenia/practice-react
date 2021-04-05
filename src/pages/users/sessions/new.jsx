@@ -19,17 +19,16 @@ const SessionNewPage = () => {
         initialValues={{ email: '', password: '' }}
         validationSchema={SignInSchema}
         onSubmit= {async (values, { setSubmitting }) => {
-          await sleep(400);
-          setSubmitting(false);
           f7.dialog.preloader('정보를 확인중입니다');
-
+          setSubmitting(false);
+          await sleep(400);
           try {
             await login({ user: values });
             f7.dialog.close();
             location.replace('/')
           } catch(error) {
             f7.dialog.close();
-            toast.get().setToastText(error?.response?.data || error?.message).openToast()
+            //toast.get().setToastText(error?.response?.data || error?.message).openToast()
           }
         }}
         validateOnMount={true}
@@ -69,6 +68,12 @@ const SessionNewPage = () => {
                 disabled={isSubmitting || !isValid} >
                 로그인
               </button>
+              <a
+                type='button'
+                href='/users/sign_up'
+                className="button button-fill button-large disabled:opacity-50">
+                회원가입
+              </a>
             </div>
           </form>
         )}

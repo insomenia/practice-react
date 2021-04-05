@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "npm run dev",
-    "dev": "cross-env NODE_ENV=development webpack serve --config ./build/webpack.config.js --host 0.0.0.0",
+    "dev": "cross-env NODE_ENV=development webpack serve --config ./build/webpack.config.js --host localhost",
     "build": "cross-env NODE_ENV=production node ./build/build.js",
     "postinstall": "cpy ./node_modules/framework7-icons/fonts/*.* ./src/fonts/"
   },
@@ -39,6 +39,7 @@
     "lodash": "^4.17.21",
     "postcss": "^8.2.6",
     "prop-types": "^15.7.2",
+    "qs": "^6.10.1",
     "react": "^17.0.1",
     "react-async": "^10.0.1",
     "react-daum-postcode": "^2.0.4",

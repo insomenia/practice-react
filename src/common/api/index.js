@@ -18,9 +18,9 @@ export const signup = params => PlainAPI.post("/signup", params).then(res => {
   saveToken(res.data)
   return res
 });
-export const logout = _ => API.delete('/logout').then(res => {
+export const logout = _ => //API.delete('/logout').then(res => {
   destroyToken()
-})
+//})
 
 
 export const getItems = params => API.get('/items', params)

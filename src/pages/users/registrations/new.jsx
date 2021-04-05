@@ -8,6 +8,8 @@ import { toast, sleep }  from '../../../js/utils.js';
 const SignUpSchema = Yup.object().shape({
   name: Yup.string().required("필수 입력사항 입니다"),
   email: Yup.string().email().required("필수 입력사항 입니다"),
+  phone: Yup.string().required("필수 입력사항 입니다"),
+  address: Yup.string().required("필수 입력사항 입니다"),
   password: Yup.string().min(4, "길이가 너무 짧습니다").max(50, "길이가 너무 깁니다").required("필수 입력사항 입니다"),
   password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], '비밀번호가 일치하지 않습니다.').required("필수 입력사항 입니다"),
 });
@@ -21,21 +23,23 @@ const SignUpPage = () => {
           initialValues={{ 
             name: '',
             email: '',
+            phone: '',
+            address: '',
             password: '',
             password_confirmation: '',
           }}
           validationSchema={SignUpSchema}
           onSubmit={async (values, { setSubmitting }) => {
-            await sleep(400);
-            setSubmitting(false);
             f7.dialog.preloader('잠시만 기다려주세요...');
+            setSubmitting(false);
+            await sleep(400);
             try {
               (await signup({ user: values })).data;
-              toast.get().setToastText('로그인 되었습니다.').openToast();
+              //toast.get().setToastText('로그인 되었습니다.').openToast();
               location.replace('/')
             } catch(error) {
               f7.dialog.close();
-              toast.get().setToastText(error?.response?.data || error?.message).openToast();
+              //toast.get().setToastText(error?.response?.data || error?.message).openToast();
             }
           }}
           validateOnMount={true}
@@ -68,6 +72,30 @@ const SignUpPage = () => {
                   value={values.email}
                   errorMessageForce={true}
                   errorMessage={touched.email && errors.email}
+                />
+                <ListInput
+                  label={i18next.t('login.phone')}
+                  type="phone"
+                  name="phone"
+                  placeholder="전화번호를 입력해주세요"
+                  clearButton
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.phone}
+                  errorMessageForce={true}
+                  errorMessage={touched.phone && errors.phone}
+                />
+                <ListInput
+                  label={i18next.t('login.address1')}
+                  type="address"
+                  name="address"
+                  placeholder="주소를 입력해주세요"
+                  clearButton
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.address}
+                  errorMessageForce={true}
+                  errorMessage={touched.address && errors.address}
                 />
                 <ListInput
                   label={i18next.t('login.password')}

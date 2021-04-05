@@ -8,7 +8,7 @@ import {
 } from 'framework7-react';
 import 'lodash';
 import React from 'react';
-import { logout } from '../common/api';
+import { logout, login } from '../common/api';
 import { getToken } from '../common/auth';
 import store from '../common/store';
 import { getDevice } from '../js/framework7-custom.js';
@@ -25,7 +25,6 @@ const MyApp = () => {
     await logout()
     location.replace('/')
   }
-
   const device = getDevice();
   // Framework7 Parameters
   const f7params = {
@@ -49,8 +48,9 @@ const MyApp = () => {
             <Navbar title="메뉴"/>
             <PageContent>
               <List>
-                { loggedIn && 
-                  <ListItem title="로그아웃" link="#" icon="las la-question" panelClose onClick={handleLogout}></ListItem>
+                { loggedIn
+                  ?<ListItem title="로그아웃" link="#" icon="las la-question" panelClose onClick={handleLogout}></ListItem>
+                  :<ListItem title="로그인" link="/users/sign_in" icon="las la-question" panelClose></ListItem>
                 }
               </List>
             </PageContent>
