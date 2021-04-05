@@ -50,7 +50,7 @@ const MyApp = () => {
               <List>
                 { loggedIn
                   ?<ListItem title="로그아웃" link="#" icon="las la-question" panelClose onClick={handleLogout}></ListItem>
-                  :<ListItem title="로그인" link="/users/sign_in" icon="las la-question" panelClose></ListItem>
+                  :<ListItem title="로그인" link="/users/sign_in/" icon="las la-question" panelClose></ListItem>
                 }
               </List>
             </PageContent>
@@ -59,17 +59,20 @@ const MyApp = () => {
       <Views tabs className="safe-areas">
         {/* Tabbar for switching views-tabs */}
         <Toolbar tabbar labels bottom>
-          <Link tabLink="#view-home" tabLinkActive icon="las la-home" text="홈" />
-          <Link tabLink="#view-items" icon="las la-gift" text="쇼핑" />
-          <Link tabLink="#view-users" icon="las la-address-book" text="전문가" />
-          <Link tabLink="#view-contacts" icon="las la-edit" text="문의하기" />
+          <Link tabLink="#view-items" tabLinkActive icon="las la-gift" text="쇼핑" />
+          {//<Link tabLink="#view-home" tabLinkActive icon="las la-home" text="홈" />
+          //<Link tabLink="#view-items" icon="las la-gift" text="쇼핑" />
+          //<Link tabLink="#view-users" icon="las la-address-book" text="전문가" />
+          //<Link tabLink="#view-contacts" icon="las la-edit" text="문의하기" />}
+          }
           <Link tabLink="#view-carts" icon="las la-shopping-cart" text="장바구니" />
         </Toolbar>
-        <View id="view-home" main tab tabActive url="/" iosDynamicNavbar={false} />
-        <View id="view-items" name="items" tab url="/items?is_main=true/" />
-        <View id="view-users" name="users" tab url="/users?is_main=true" />
-        <View id="view-contacts" name="contacts" tab url="/contacts" />
-        <View id="view-carts" name="carts" tab url="/carts" />
+        <View id="view-items" name="items" tabActive url="/" iosDynamicNavbar={false}></View>
+        {//<View id="view-home" main tab tabActive url="/" iosDynamicNavbar={false} />
+        //<View id="view-items" name="items" tab url="/items?is_main=true/" />
+        //<View id="view-contacts" name="contacts" tab url="/contacts" />
+        }
+        <View id="view-carts" name="carts" tab url="/carts/" />
       </Views>
     </App>
   );
