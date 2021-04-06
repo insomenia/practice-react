@@ -48,9 +48,10 @@ const MyApp = () => {
       <Panel left cover>
           <Page>
             <Navbar title="메뉴"/>
-            <PageContent>
-              <List>
+              <ul><List>
                 <Categories></Categories>
+              </List></ul>
+              <ul><List>
                 {
                   loggedIn
                   ?<>
@@ -59,8 +60,7 @@ const MyApp = () => {
                   </>
                   :<ListItem title="로그인" link="/users/sign_in/" icon="las la-question" panelClose></ListItem>
                 }
-              </List>
-            </PageContent>
+              </List></ul>
           </Page>
       </Panel>
       <Views tabs className="safe-areas">
