@@ -16,6 +16,7 @@ import routes from '../js/routes';
 import i18n from "../lang/i18n";
 import {createAsyncPromise} from '../common/api/api.config';
 import { create } from 'lodash';
+import Categories from './categories.jsx';
 
 global.i18next = i18n;
 
@@ -27,8 +28,6 @@ const MyApp = () => {
     location.replace('/')
   }
   const device = getDevice();
-  const data=createAsyncPromise('GET','/categories')()
-    .then(data=>console.log(data));
   // Framework7 Parameters
   const f7params = {
     name: 'Practice', // App name
@@ -51,7 +50,9 @@ const MyApp = () => {
             <Navbar title="메뉴"/>
             <PageContent>
               <List>
-                { loggedIn
+                <Categories></Categories>
+                {
+                  loggedIn
                   ?<>
                     <ListItem title='마이페이지' link="/users/mypage/" panelClose></ListItem>
                     <ListItem title="로그아웃" link="#" icon="las la-question" panelClose onClick={handleLogout}></ListItem>
