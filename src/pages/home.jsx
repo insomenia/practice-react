@@ -28,16 +28,13 @@ const HomePage = (props) => {
           <Link icon='las la-bars' panelOpen="left" />
         </NavLeft>
       </Navbar>
-      <div className="bg-white">
-      </div>
-      
       {/* Page content */}
       <div className="p-3">
         {categoryId>=0
         ?<ul><List>
           {items.map(item=><ListItem key={item.itemId} title={item.name} link={`/item/${item.itemId}`}/>)}
         </List></ul>
-        :<div>로딩중</div>}
+        :null}
       </div>
 
     </Page>

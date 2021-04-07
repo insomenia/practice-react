@@ -18,6 +18,14 @@ import {createAsyncPromise} from '../common/api/api.config';
 import { create } from 'lodash';
 import Categories from './categories.jsx';
 
+// Import recoil
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
 global.i18next = i18n;
 
 const MyApp = () => {
@@ -43,36 +51,40 @@ const MyApp = () => {
     }
   };
   return (
-    <App { ...f7params } >
-      {/* Left panel with cover effect*/}
-      <Panel left cover>
-          <Page>
-            <Navbar title="메뉴"/>
-              <ul><List>
-                <Categories></Categories>
-              </List></ul>
-              <ul><List>
-                {
-                  loggedIn
-                  ?<>
-                    <ListItem title='마이페이지' link="/users/mypage/" panelClose></ListItem>
-                    <ListItem title="로그아웃" link="#" icon="las la-question" panelClose onClick={handleLogout}></ListItem>
-                  </>
-                  :<ListItem title="로그인" link="/users/sign_in/" icon="las la-question" panelClose></ListItem>
-                }
-              </List></ul>
-          </Page>
-      </Panel>
-      <Views tabs className="safe-areas">
-        {/* Tabbar for switching views-tabs */}
-        <Toolbar tabbar labels bottom>
-          <Link tabLink="#view-home" tabLinkActive icon="las la-gift" text="쇼핑" />
-          <Link tabLink="#view-carts" icon="las la-shopping-cart" text="장바구니" />
-        </Toolbar>
-        <View id="view-home" name="home" main tab tabActive url="/" iosDynamicNavbar={false} />
-        <View id="view-carts" name="carts" tab url="/cart/"/>
-      </Views>
-    </App>
+    <RecoilRoot>
+      <App { ...f7params } >
+        {/* Left panel with cover effect*/}
+        <Panel left cover>
+            <Page>
+              <Navbar title="메뉴"/>
+                <ul><List>
+                  <Categories></Categories>
+                </List></ul>
+                <ul><List>
+                  {
+                    loggedIn
+                    ?<>
+                      <ListItem title='마이페이지' link="/users/mypage/" panelClose></ListItem>
+                      <ListItem title="로그아웃" link="#" icon="las la-question" panelClose onClick={handleLogout}></ListItem>
+                    </>
+                    :<ListItem title="로그인" link="/users/sign_in/" icon="las la-question" panelClose></ListItem>
+                  }
+                </List></ul>
+            </Page>
+        </Panel>
+        <Views tabs className="safe-areas">
+          {/* Tabbar for switching views-tabs */}
+          <Toolbar tabbar labels bottom>
+            <Link tabLink="#view-home" tabLinkActive icon="las la-gift" text="쇼핑" />
+            {loggedIn
+              ?<Link tabLink="#view-carts" icon="las la-shopping-cart" text="장바구니" />
+              :<Link tabLink='#view_home' href="/users/sign_in/" icon="las la-shopping-cart" text="장바구니" />}
+          </Toolbar>
+          <View id="view-home" name="home" main tab tabActive url="/" iosDynamicNavbar={false} />
+          <View id="view-carts" name="carts" tab url="/cart/"/>
+        </Views>
+      </App>
+    </RecoilRoot>
   );
 }
 export default MyApp;
