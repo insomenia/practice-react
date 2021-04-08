@@ -21,11 +21,11 @@ const SessionNewPage = () => {
         onSubmit= {async (values, { setSubmitting }) => {
           f7.dialog.preloader('정보를 확인중입니다');
           setSubmitting(false);
-          await sleep(400);
+          await sleep(100);
           try {
             await login({ user: values });
             f7.dialog.close();
-            location.replace('/')
+            location.replace('/');
           } catch(error) {
             f7.dialog.close();
             //toast.get().setToastText(error?.response?.data || error?.message).openToast()
@@ -64,7 +64,7 @@ const SessionNewPage = () => {
             <div className="p-1">
               <button 
                 type="submit" 
-                className="button button-fill button-large disabled:opacity-50"
+                className="button button-fill button-large disabled:opacity-50 mb-5"
                 disabled={isSubmitting || !isValid} >
                 로그인
               </button>

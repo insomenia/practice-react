@@ -52,10 +52,10 @@ const MyApp = () => {
   };
   return (
     <RecoilRoot>
-      <App { ...f7params } >
+      <App { ...f7params }>
         {/* Left panel with cover effect*/}
         <Panel left cover>
-            <Page>
+            <Page  className='border-8'>
               <Navbar title="메뉴"/>
                 <ul><List>
                   <Categories></Categories>
@@ -65,9 +65,9 @@ const MyApp = () => {
                     loggedIn
                     ?<>
                       <ListItem title='마이페이지' link="/users/mypage/" panelClose></ListItem>
-                      <ListItem title="로그아웃" link="#" icon="las la-question" panelClose onClick={handleLogout}></ListItem>
+                      <ListItem title="로그아웃" link="#" panelClose onClick={handleLogout}></ListItem>
                     </>
-                    :<ListItem title="로그인" link="/users/sign_in/" icon="las la-question" panelClose></ListItem>
+                    :<ListItem title="로그인" link="/users/sign_in/" panelClose></ListItem>
                   }
                 </List></ul>
             </Page>

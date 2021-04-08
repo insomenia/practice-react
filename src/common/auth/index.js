@@ -10,9 +10,10 @@ export const getToken = () => {
   };
 };
 
-export const saveToken = ({token, csrf}) => {
+export const saveToken = ({refreshToken, token, csrf}) => {
   window.localStorage.setItem(ID_TOKEN_KEY, token);
   window.localStorage.setItem(CSRF_KEY, csrf);
+  document.cookie = `refreshToken=${refreshToken}`;
 };
 
 export const destroyToken = () => {
