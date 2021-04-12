@@ -10,4 +10,18 @@ const myInfoState = atom({
   default: null,
 });
 
-export { cartState, myInfoState };
+const likesState = atom({
+  key: "likes",
+  default: []
+});
+
+const cartReadyState = atom({
+  key: "cartReady",
+  default:[]
+});
+
+const itemState = atom({
+  key: "item",
+  default:null
+})
+export { cartState, myInfoState, likesState, cartReadyState, itemState };

@@ -11,6 +11,7 @@ import {
 import { createAsyncPromise } from "../common/api/api.config";
 import { useRecoilState } from "recoil";
 import { myInfoState } from "../js/atoms";
+import MyOrders from "../components/myOrders"
 
 const MyPage = () => {
   const [info, setInfo] = useRecoilState(myInfoState);
@@ -44,29 +45,7 @@ const MyPage = () => {
               </Row>
             </div>
           )}
-          <ul className="px-5">
-            <List>
-              {myOrders === null
-                ? null
-                : myOrders.length === 0
-                ? "주문내역이 없습니다."
-                : myOrders.map((order) => (
-                    <ListItem
-                      key={order.orderId}
-                      href={`/users/my_orders/${order.orderId}`}
-                    >
-                      <Row className="w-full">
-                        <Col width="80" className="truncate">
-                          {order.summary}
-                        </Col>
-                        <Col width="20" className="text-center">
-                          {order.state}
-                        </Col>
-                      </Row>
-                    </ListItem>
-                  ))}
-            </List>
-          </ul>
+          <MyOrders></MyOrders>
         </div>
       </div>
     </Page>
