@@ -1,12 +1,12 @@
 import React from "react";
 import { Col, Row } from "framework7-react";
 
-function ItemInList({items}){
-  
+function ItemInList({ items }) {
+
   return items.map((item) => (
     <a key={item.itemId}
       href={`/item/${item.itemId}`}
-      className="w-36 text-center text-base mt-5 mx-1"
+      className="text-center text-base mt-5 mx-1"
     >
       <Row>
         <Col>
@@ -23,8 +23,8 @@ function ItemInList({items}){
         <Col>
           {
             item.minPrice === item.maxPrice
-              ?item.minPrice
-              :`${item.minPrice}원 ~ ${item.maxPrice}원`
+              ? item.minPrice
+              : `${item.minPrice}원 ~ ${item.maxPrice}원`
           }
         </Col>
       </Row>

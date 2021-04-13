@@ -17,11 +17,16 @@ const likesState = atom({
 
 const cartReadyState = atom({
   key: "cartReady",
-  default:[]
+  default: []
 });
 
 const itemState = atom({
   key: "item",
-  default:null
+  default: null
+});
+
+const selectState = atom({
+  key: "selectState",
+  default: false
 })
-export { cartState, myInfoState, likesState, cartReadyState, itemState };
+export { cartState, myInfoState, likesState, cartReadyState, itemState, selectState };

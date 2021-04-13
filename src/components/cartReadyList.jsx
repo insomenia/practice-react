@@ -48,7 +48,7 @@ const CartReadyList = () => {
   };
 
   return (<>
-    <ul className="mx-10 items-center mt-5">
+    <ul className="mx-10 items-center mt-5 md:mx-0">
       {cartReady.length > 0 ? (
         <>
           <Row className="w-full text-center text-base border-b">
@@ -58,7 +58,7 @@ const CartReadyList = () => {
           </Row>
           {cartReady.map((option, index) => (
             <li key={option.optionId}>
-              <Row className="w-full p-2 text-center text-base items-center" noGap>
+              <Row className="w-full text-center text-base items-center" noGap>
                 <Col width="30">{option.text}</Col>
                 <Col width="20">{option.price}</Col>
                 <Col width="50">
@@ -70,7 +70,7 @@ const CartReadyList = () => {
         </>
       ) : null}
     </ul>
-    <div className="flex justify-center mt-1">
+    <div className="flex justify-center mt-1 mb-5">
       {cartReady.length > 0 ? (
         <Button
           fill

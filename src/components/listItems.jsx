@@ -24,20 +24,14 @@ const ListItems = (props) => {
   return cart.listItems.map((listItem, index) => (
     <ListItem key={listItem.optionId}>
       <Row noGap className="w-full text-center items-center">
-        <Col width='60'>
+        <Col width='50'>
           <Row className="items-center">
-            <Col>
-              <img
-                src={`http://localhost:3000/img/small/${listItem.itemName}`}
-                className="w-full md:w-20"
-              />
-            </Col>
             <Col>{listItem.itemName}</Col>
             <Col>{listItem.optionText}</Col>
             <Col>{listItem.price}</Col>
           </Row>
         </Col>
-        <Col width='40'>
+        <Col width='50'>
           <QuanNBtn {...{ index, handleDelete, handleQuantity, array: cart.listItems }}></QuanNBtn>
         </Col>
       </Row>

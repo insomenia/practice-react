@@ -1,24 +1,32 @@
-import React, { useEffect } from "react";
-import {
-  f7,
-  Page,
-  Navbar,
-  List,
-  ListItem,
-  Button,
-  Row,
-  Col,
-  Icon,
-} from "framework7-react";
+import React from "react";
+import { Row, Col, Icon, Button } from "framework7-react";
+import { getDevice } from "../js/framework7-custom.js";
 
 const QuanNBtn = ({ index, array, handleQuantity, handleDelete }) => {
-
+  if (getDevice().desktop) {
+    return (
+      <Row noGap className='items-center'>
+        <Col width="70" className="border-2">
+          <input type="number" min="1" className="text-center w-full"
+            onChange={(event) => handleQuantity(index, event.target.value)}
+            value={array[index].quantity || ""}
+          />
+        </Col>
+        <Col width="30" className="p-1">
+          <Button fill onClick={() => handleDelete(index)}
+          >
+            X
+        </Button>
+        </Col>
+      </Row>
+    );
+  }
   return (
-    <Row noGap className='items-center'>
+    <Row className='items-center' gap='10'>
       <Col width="20">
-        <button onClick={() => handleQuantity(index, array[index].quantity - 1)}>
-          <Icon f7="chevron_left" color="#3b20d4f3" className="text-sm mb-2" />
-        </button>
+        <Button fill onClick={() => handleQuantity(index, array[index].quantity - 1)}>
+          <Icon f7="chevron_left" className="text-sm mb-2" />
+        </Button>
       </Col>
       <Col width="30" className="border-2">
         <input type="number" min="1" className="text-center w-full"
@@ -27,16 +35,15 @@ const QuanNBtn = ({ index, array, handleQuantity, handleDelete }) => {
         />
       </Col>
       <Col width="20" className="flex-row items-center">
-        <button onClick={() => handleQuantity(index, array[index].quantity + 1)}>
-          <Icon f7="chevron_right" color="#3b20d4f3" className="text-sm mb-2" />
-        </button>
+        <Button fill onClick={() => handleQuantity(index, array[index].quantity + 1)}>
+          <Icon f7="chevron_right" className="text-sm mb-2" />
+        </Button>
       </Col>
-      <Col width="30" className="p-1">
-        <button onClick={() => handleDelete(index)}
-          className="h-full bg-indigo-600 bold text-white"
+      <Col width="20" className="p-1">
+        <Button fill onClick={() => handleDelete(index)}
         >
           X
-      </button>
+      </Button>
       </Col>
     </Row>
   );

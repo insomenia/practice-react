@@ -5,9 +5,9 @@ import { getToken } from "../common/auth";
 import { useRecoilState } from "recoil";
 import { likesState, itemState } from "../js/atoms";
 
-const ItemDesc = (props) => {  
-  const [,setItems] = useRecoilState(likesState);
-  const [item,setItem] = useRecoilState(itemState);
+const ItemDesc = (props) => {
+  const [, setItems] = useRecoilState(likesState);
+  const [item, setItem] = useRecoilState(itemState);
   const handleClick = async () => {
     if (getToken().token) {
       if (!item.liked) {
@@ -17,7 +17,7 @@ const ItemDesc = (props) => {
           likes: item.likes + 1,
           liked: true,
         });
-        const myLikes=await createAsyncPromise("GET","/mylikes")();
+        const myLikes = await createAsyncPromise("GET", "/mylikes")();
         setItems(myLikes.items);
       } else {
         await createAsyncPromise("DELETE", `/like/${item.itemId}`)();
@@ -26,7 +26,7 @@ const ItemDesc = (props) => {
           likes: item.likes - 1,
           liked: false,
         });
-        const myLikes=await createAsyncPromise("GET","/mylikes")();
+        const myLikes = await createAsyncPromise("GET", "/mylikes")();
         setItems(myLikes.items);
       }
     } else {
@@ -38,21 +38,27 @@ const ItemDesc = (props) => {
       <p className="text-xl md:mt-5">{item.name}</p>
       <p className="my-5">{item.text}</p>
       <Row className="mx-10">
-        <Col width="50">
+        <Col width="33" medium='0'>
           <Button
-            className="md:hover:bg-indigo-900"
+            className="md:hidden"
             fill
             sheetOpen=".option-sheet"
           >
             옵션
           </Button>
         </Col>
-        <Col width="50">
+        <Col width="66" medium='100'>
           <Row className='justify-center'>
-            <Col width='30' onClick={handleClick}><Icon
-              f7={!item.liked ? "hand_thumbsup" : "hand_thumbsup_fill"}
-              color="default" /></Col>
-            <Col width='30'>{item.likes}</Col>
+            <Col width='25' onClick={handleClick}>
+              <Icon
+                f7={!item.liked ? "hand_thumbsup" : "hand_thumbsup_fill"}
+                color="default" />
+            </Col>
+            <Col width='25'>{item.likes}</Col>
+            <Col width='25'>
+              <Icon color='yellow' f7='star_filled' />
+            </Col>
+            <Col width='25'>{item.grade ? item.grade.toFixed(2) : 0}</Col>
           </Row>
         </Col>
       </Row>

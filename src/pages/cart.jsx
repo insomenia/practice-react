@@ -35,7 +35,7 @@ const Cart = (props) => {
               <Col width="50"></Col>
               <Col width="50" className="flex justify-center">
                 <Button
-                  className="border pace- text-black text-base mt-10 w-40"
+                  className="border text-base mt-10 w-40"
                   {...{
                     href: cart.total ? "/purchase/" : undefined,
                     onClick: cart.total ? undefined : () => {
