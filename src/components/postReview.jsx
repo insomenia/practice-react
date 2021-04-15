@@ -5,6 +5,7 @@ import { createAsyncPromise } from "../common/api/api.config";
 import { itemState } from "../js/atoms";
 
 const PostReview = (props) => {
+  let communicating = false; // 연타했을 때 두개 입력되는거 방지용
   const [text, setText] = useState("");
   const [grade, setGrade] = useState(0);
   const [item, setItem] = useRecoilState(itemState);
@@ -26,6 +27,8 @@ const PostReview = (props) => {
       f7.dialog.alert("평점을 선택해주세요", "");
       return;
     }
+    if (communicating) return;
+    communicating = true;
     if (!item.reviewed) {
       await createAsyncPromise('POST', "/review")({
         itemId: item.itemId,
@@ -43,6 +46,7 @@ const PostReview = (props) => {
     }
     const data = await createAsyncPromise("GET", `/item/${item.itemId}`)();
     setItem(data.item);
+    communicating = false;
   }
 
   useEffect(() => {
