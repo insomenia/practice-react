@@ -15,7 +15,7 @@ const TabView = () => {
   //const device = getDevice();
   // Framework7 Parameters
   return (
-    <Views tabs className="safe-areas">
+    <Views tabs className="safe-areas" >
       {/* Tabbar for switching views-tabs */}
       <Toolbar tabbar labels bottom>
         <Link tabLink="#view-home" tabLinkActive

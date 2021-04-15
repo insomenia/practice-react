@@ -18,7 +18,7 @@ const routes = [
   { path: "/users/mypage/", component: MyPage },
   { path: "/users/my_orders/:orderId", component: MyOrderPage },
   { path: "/item/:itemId", component: ItemPage },
-  { path: "/likes/", component: LikesPage},
+  { path: "/likes/", component: LikesPage },
   { path: "/", component: HomePage },
   { path: "/:categoryId", component: HomePage },
   { path: "(.*)", component: NotFoundPage },

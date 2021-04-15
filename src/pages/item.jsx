@@ -44,7 +44,7 @@ const Item = (props) => {
             </div>
           </div>
         ) : null}
-      {item && item.purchased && item.purchased.length > 0
+      {item && item.purchased
         ? <PostReview />
         : null}
       {item
