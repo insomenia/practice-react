@@ -27,7 +27,7 @@ const Cart = (props) => {
                 <Button
                   className="border text-base mt-10 w-40"
                   {...{
-                    href: cart.total ? "/purchase" : undefined,
+                    href: cart.total ? "/purchase/" : undefined,
                     onClick: cart.total ? undefined : () => {
                       f7.dialog.alert("구매하는 물건이 없습니다.", "빈 카트");
                     }

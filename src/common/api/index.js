@@ -22,7 +22,7 @@ export const refresh = (_) =>
   ).then((res) => {
     saveToken(res.data);
     return res.data;
-  }).catch((e) => destroyToken());
+  });
 
 export const login = (params) =>
   PlainAPI.post("/login", params).then((res) => {

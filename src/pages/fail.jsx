@@ -5,7 +5,6 @@ import { createAsyncPromise } from "../common/api/api.config";
 const FailPage = (props) => {
 
   useEffect(async () => {
-    await createAsyncPromise("POST", "purchase_fail")(props.f7route.query);
     f7.view.main.app.tab.show('#view-home');
     location.replace('/');
   }, []);

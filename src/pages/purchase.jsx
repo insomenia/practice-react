@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { f7, Sheet, Page, Navbar, List, ListInput, Button } from "framework7-react";
+import { f7, Sheet, Page, Navbar, List, ListInput, Button, ListItem } from "framework7-react";
 import { toast, sleep } from "../js/utils.js";
 import { Formik } from "formik";
 import { createAsyncPromise } from "../common/api/api.config";
 import * as Yup from "yup";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { myInfoState } from "../js/atoms";
+import DaumPostcode from "react-daum-postcode";
 
 import { cartState } from "../js/atoms";
 
 const PurchaseSchema = Yup.object().shape({
-  address: Yup.string(),
+  address: Yup.string().required('상세주소를 입력해주세요'),
   phone: Yup.string()
 });
 
@@ -19,6 +20,8 @@ const PurchasePage = () => {
   const [info, setInfo] = useRecoilState(myInfoState);
   const [sheetOpened, setSheetOpened] = useState(false);
   const [howToPay, setHowToPay] = useState('결제 방법을 선택하세요');
+  const [address, setAddress] = useState(null);
+  const [daumOpened, setDaumOpened] = useState(false);
   useEffect(async () => {
     const newInfo = await createAsyncPromise("GET", "/myinfo")();
     setInfo(newInfo);
@@ -32,7 +35,7 @@ const PurchasePage = () => {
   }, []);
 
   return (
-    <Page className="bg-white">
+    <Page className="bg-white" noToolbar>
       <Navbar title="결제" backLink={true} sliding={false} />
       <div className="md:flex md:justify-center">
         <div className="md:w-1/3">
@@ -41,7 +44,7 @@ const PurchasePage = () => {
             validationSchema={PurchaseSchema}
             onSubmit={async (values, { setSubmitting }) => {
               if (howToPay === '결제 방법을 선택하세요') {
-                f7.dialog.alert("결제 방법을 선택하세요");
+                f7.dialog.alert("결제 방법을 선택하세요", "결제");
                 return;
               }
               f7.dialog.preloader("정보를 확인중입니다");
@@ -49,24 +52,24 @@ const PurchasePage = () => {
               await sleep(400);
               try {
                 const tossPayments = TossPayments("test_ck_O6BYq7GWPVvN5LOyqzLVNE5vbo1d");
-                tossPayments.requestPayment('가상계좌', {
+                await createAsyncPromise("POST", "/purchase")({
+                  address: `${address} ${values.address}`,
+                  phone: values.phone,
+                });
+                tossPayments.requestPayment(howToPay, {
                   amount: cart.total,
-                  orderId: `cdh_insomenia_${cart.orderId}`,
+                  orderId: `insomenia_${new Date().getTime()}_${cart.orderId}`,
                   orderName: `${cart.listItems[0].itemName} ${cart.listItems[0].optionText}${cart.listItems.length > 1
                     ? ` 외 ${cart.listItems.length - 1} 건`
                     : ""}`,
                   customerName: info.username,
                   successUrl: 'http://localhost:8080/success',
-                  failUrl: 'http://localhost:8080',
-                });
-                await createAsyncPromise("POST", "/purchase")({
-                  address: values.address || info.address,
-                  phone: values.phone || info.phone,
-                  account: "1"
+                  failUrl: 'http://localhost:8080/fail',
                 });
                 f7.dialog.close();
               } catch (error) {
                 f7.dialog.close();
+                f7.dialog.alert("결제 오류")
                 //toast.get().setToastText(error?.response?.data || error?.message).openToast()
               }
             }}
@@ -84,11 +87,39 @@ const PurchasePage = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <List>
+                  <ListItem header='주소' title={address || '주소를 선택하세요'}
+                    after={<button
+                      className="button button-fill w-1/6"
+                      type='button'
+                      onClick={() => {
+                        setDaumOpened(x => !x);
+                      }}
+                    >
+                      주소
+                      </button>}
+                  >
+                  </ListItem>
+                  <div className='text-sm'>
+                    {daumOpened
+                      ? <DaumPostcode width='100%' height='200%' onComplete={(data) => {
+                        setAddress(data.address + (data.buildingName ? " " + data.buildingName : ""));
+                        setDaumOpened(false);
+                      }}
+                        style={{
+                          position: "absolute",
+                          fontSize: "5px",
+                          top: '50%',
+                          left: "0%",
+                          zIndex: "100",
+                          overflow: "hidden"
+                        }} />
+                      : undefined}
+                  </div>
                   <ListInput
-                    label="주소"
-                    name="address"
+                    label={i18next.t("login.address2")}
                     type="address"
-                    placeholder="주소를 입력해주세요."
+                    name="address"
+                    placeholder="상세주소를 입력해주세요"
                     clearButton
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -96,7 +127,7 @@ const PurchasePage = () => {
                     errorMessageForce={true}
                     errorMessage={touched.address && errors.address}
                     size="40"
-                  />
+                  ></ListInput>
                   <ListInput
                     label="전화번호"
                     name="phone"
