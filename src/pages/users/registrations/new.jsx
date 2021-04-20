@@ -18,7 +18,7 @@ import DaumPostcode from "react-daum-postcode";
 const SignUpSchema = Yup.object().shape({
   name: Yup.string().required("필수 입력사항 입니다"),
   email: Yup.string().email().required("필수 입력사항 입니다"),
-  phone: Yup.string().required("필수 입력사항 입니다"),
+  phone: Yup.string().matches(/^\d{3}-\d{3,4}-\d{4}$/, '전화번호의 양식을 확인해주세요').required("필수 입력사항 입니다"),
   address: Yup.string().required("필수 입력사항 입니다"),
   password: Yup.string()
     .min(4, "길이가 너무 짧습니다")
@@ -128,10 +128,10 @@ const SignUpPage = () => {
                   >
                   </ListItem>
                   {daumOpened
-                    ? <DaumPostcode autoResize onComplete={(data) => {
+                    ? <ListItem><DaumPostcode autoResize slot='after-title' onComplete={(data) => {
                       setAddress(data.address + (data.buildingName ? " " + data.buildingName : ""));
                       setDaumOpened(false);
-                    }} />
+                    }} /></ListItem>
                     : undefined}
                   <ListInput
                     label={i18next.t("login.address2")}

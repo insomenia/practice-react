@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Page, Navbar, List, ListItem, Row, Col } from "framework7-react";
+import { Page, Navbar, List, ListItem, Row, Col, Link } from "framework7-react";
 import { createAsyncPromise } from "../common/api/api.config";
 
 const MyOrder = (props) => {
@@ -34,7 +34,7 @@ const MyOrder = (props) => {
                   <Col width="40" className="border-r">
                     결제금액
                   </Col>
-                  <Col width="60">{myOrder.total}</Col>
+                  <Col width="60">{myOrder.total}원</Col>
                 </Row>
               </div>
               <ul>
@@ -52,11 +52,11 @@ const MyOrder = (props) => {
                     </Row>
                   </ListItem>
                   {myOrder.listItems.map((listItem) => (
-                    <ListItem
+                    <Link
                       key={listItem.optionId}
                       href={`/item/${listItem.itemId}/`}
                     >
-                      <Row noGap className="w-full text-center items-center">
+                      <Row noGap className="w-full text-center items-center border-b">
                         <Col width="25" small="10">
                           <img
                             src={`http://localhost:3000/img/small/${listItem.itemName}`}
@@ -72,13 +72,13 @@ const MyOrder = (props) => {
                           </Row>
                         </Col>
                         <Col width="25" small="30">
-                          {listItem.price}
+                          {listItem.price}원
                         </Col>
                         <Col width="25" small="30">
                           {listItem.quantity}
                         </Col>
                       </Row>
-                    </ListItem>
+                    </Link>
                   ))}
                 </List>
               </ul>

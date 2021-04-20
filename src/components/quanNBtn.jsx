@@ -28,7 +28,7 @@ const QuanNBtn = ({ index, array, handleQuantity, handleDelete }) => {
           <Icon f7="chevron_left" className="text-sm mb-2" />
         </Button>
       </Col>
-      <Col width="30" className="border-2">
+      <Col width="30" className="border-2 h-8 flex flex-col items-center">
         <input type="number" min="1" className="text-center w-full"
           onChange={(event) => handleQuantity(index, event.target.value)}
           value={array[index].quantity || ""}

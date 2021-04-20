@@ -10,30 +10,36 @@ const MyOrders = () => {
     setMyOrders(orders.orders);
   }, []);
   return (
-    <ul className="px-5">
-      <List>
-        {myOrders === null
-          ? null
-          : myOrders.length === 0
-            ? "주문내역이 없습니다."
-            : myOrders.map((order) => (
-              <ListItem
-                key={order.orderId}
-                href={`/users/my_orders/${order.orderId}/`}
-              >
-                <Row className="w-full">
-                  <Col width="80" className="truncate">
-                    {order.summary}
-                  </Col>
-                  <Col width="20" className="text-center">
-                    {order.state}
-                  </Col>
-                </Row>
-              </ListItem>
-            ))
-        }
-      </List>
-    </ul>
+    <>
+      <b className='text-xl ml-5'>내 주문 내역</b>
+      <ul className="px-5 -mt-7">
+        <List>
+          {myOrders === null
+            ? null
+            : myOrders.length === 0
+              ? "주문내역이 없습니다."
+              : myOrders.map((order) => (
+                <ListItem
+                  key={order.orderId}
+                  href={`/users/my_orders/${order.orderId}/`}
+                  className='border-b'
+                >
+                  <Row className="w-full">
+                    <Col width='50'>
+                      <img src={`http://localhost:3000/img/small/${order.summary.split(' ')[0]}`} />
+                    </Col>
+                    <Col width="50" className="flex flex-col items-end">
+                      <div>{order.summary}</div>
+                      <div>{order.state}</div>
+                      <div className='text-sm'>{order.total}원</div>
+                    </Col>
+                  </Row>
+                </ListItem>
+              ))
+          }
+        </List>
+      </ul>
+    </>
   );
 };
 

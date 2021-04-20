@@ -19,25 +19,23 @@ import { createAsyncPromise } from "../common/api/api.config";
 import ItemInList from "../components/itemInList";
 
 const HomePage = (props) => {
-  const [categoryId, setCategoryId] = useState(-1);
   const [items, setItems] = useState([]);
   useEffect(async () => {
     const getItems = createAsyncPromise(
       "GET",
-      props.categoryId ? `/items/${props.categoryId}` : "/items"
+      props.categoryName ? `/items/${props.categoryName}` : "/items"
     );
     const data = await getItems();
     setItems(data.items);
-    setCategoryId(props.categoryId || 0);
   }, []);
   return (
-    <Page name="home">
+    <Page name="home" className='md:flex md:flex-col md:items-end'>
       {/* Top Navbar */}
       <Navbar className="text-center " sliding={false}>
         <NavLeft>
           <Link icon="las la-bars" panelOpen="left" />
         </NavLeft>
-        Insomenia Shop
+        <b>{props.categoryName || "Insomenia Shop"}</b>
         <NavRight className="w-10"> </NavRight>
       </Navbar>
       {/* Page content */}
@@ -49,7 +47,7 @@ const HomePage = (props) => {
           className="w-full md:w-72"
         />
   </div>*/}
-      {categoryId >= 0
+      {items.length > 0
         ? <ItemInList items={items} setItems={setItems}></ItemInList>
         : null}
     </Page>

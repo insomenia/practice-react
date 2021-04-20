@@ -16,7 +16,7 @@ const Likes = (props) => {
   }, []);
   return (
     <Page>
-      <Navbar className="text-center " sliding={false} />
+      <Navbar className="text-center" title='북마크' sliding={false} />
       {
         getToken().token
           ? items.length > 0

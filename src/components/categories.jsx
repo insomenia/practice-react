@@ -25,7 +25,7 @@ const Categories = () => {
             title={category.name}
             after={<div className='text-black'>({category.quantity})</div>}
             key={category.id}
-            link={`/${category.id}`}
+            link={`/${category.name}`}
             panelClose
             className='pl-3'
           ></ListItem>

@@ -13,7 +13,7 @@ const Search = (props) => {
   }
   return (
     <Page>
-      <Navbar sliding={false}></Navbar>
+      <Navbar sliding={false} title={keyword || "검색"}></Navbar>
       <Formik initialValues={{ keyword: "" }}
         onSubmit={async (values, { setSubmitting }) => {
           getNewResult(values.keyword);

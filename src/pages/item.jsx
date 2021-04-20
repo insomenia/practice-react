@@ -41,7 +41,7 @@ const Item = (props) => {
       </Toolbar>}
       {item
         ? (
-          <div className="p-10 text-base mb-16 md:grid md:grid-cols-4 md:mt-20">
+          <div className="p-10 text-base mb-10 md:grid md:grid-cols-4 md:mt-20">
             <div className="md:col-start-2 md:col-span-1">
               <Row className="flex-col items-center">
                 <Col width="80">

@@ -26,7 +26,7 @@ const SideNavBar = () => {
               <>
                 <ListItem
                   title="마이페이지"
-                  link="/users/mypage"
+                  link="/users"
                   panelClose
                 ></ListItem>
                 <ListItem
