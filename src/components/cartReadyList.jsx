@@ -1,13 +1,14 @@
 import React from "react";
 import { Button, Row, Col } from "framework7-react";
 import { createAsyncPromise } from "../common/api/api.config";
-import { cartState, cartReadyState } from "../js/atoms";
+import { cartState, cartReadyState, selectState } from "../js/atoms";
 import { useRecoilState } from "recoil";
 import QuanNBtn from "./quanNBtn";
 
 const CartReadyList = () => {
   const [, setCart] = useRecoilState(cartState);
   const [cartReady, setCartReady] = useRecoilState(cartReadyState);
+  const [, setSelect] = useRecoilState(selectState);
 
   const handleQuantity = (index, quantity) => {
     if (quantity < 0)
@@ -45,10 +46,11 @@ const CartReadyList = () => {
     setCartReady([]);
     const newCart = await createAsyncPromise("GET", "/cart")();
     setCart(newCart.data);
+    setSelect(true);
   };
 
   return (<>
-    <ul className="mx-10 items-center mt-5 md:mx-0">
+    <ul className="items-center mt-5 md:mx-0">
       {cartReady.length > 0 ? (
         <>
           <Row className="w-full text-center text-base border-b">
@@ -76,6 +78,7 @@ const CartReadyList = () => {
           fill
           className="w-32"
           onClick={handleClick}
+          sheetClose
         >
           카트에 담기
         </Button>

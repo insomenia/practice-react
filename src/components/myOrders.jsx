@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { List, ListItem, Row, Col } from "framework7-react";
+import { List, ListItem, Row, Col, Link, Icon } from "framework7-react";
 import { createAsyncPromise } from "../common/api/api.config";
 
 const MyOrders = () => {
@@ -11,34 +11,32 @@ const MyOrders = () => {
   }, []);
   return (
     <>
-      <b className='text-xl ml-5'>내 주문 내역</b>
-      <ul className="px-5 -mt-7">
-        <List>
-          {myOrders === null
-            ? null
-            : myOrders.length === 0
-              ? "주문내역이 없습니다."
-              : myOrders.map((order) => (
-                <ListItem
-                  key={order.orderId}
-                  href={`/users/my_orders/${order.orderId}/`}
-                  className='border-b'
-                >
-                  <Row className="w-full">
-                    <Col width='50'>
-                      <img src={`http://localhost:3000/img/small/${order.summary.split(' ')[0]}`} />
-                    </Col>
-                    <Col width="50" className="flex flex-col items-end">
-                      <div>{order.summary}</div>
-                      <div>{order.state}</div>
-                      <div className='text-sm'>{order.total}원</div>
-                    </Col>
-                  </Row>
-                </ListItem>
-              ))
-          }
-        </List>
-      </ul>
+      <div className='text-xl ml-5 w-full mb-5 border-b'><b>내 주문 내역</b></div>
+      <div className="px-5">
+        {myOrders === null
+          ? null
+          : myOrders.length === 0
+            ? "주문내역이 없습니다."
+            : myOrders.map((order) => (
+              <Link
+                key={order.orderId}
+                href={`/users/my_orders/${order.orderId}/`}
+              >
+                <Row noGap className="w-full items-stretch mb-5">
+                  <Col width='50'>
+                    <img className='border rounded-full' src={`http://localhost:3000/${order.img}`} />
+                  </Col>
+                  <Col width="40" className="flex flex-col space-y-1 items-end border-b">
+                    <div className='text-lg'>{order.summary}</div>
+                    <div className='text-sm'>{order.state}</div>
+                    <div className='text-sm'>{order.total}원</div>
+                  </Col>
+                  <Col width='10' className='border-b flex justify-center items-center'> <Icon f7='chevron_right' /></Col>
+                </Row>
+              </Link>
+            ))
+        }
+      </div>
     </>
   );
 };

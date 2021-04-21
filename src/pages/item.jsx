@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { f7, Page, Navbar, Row, Col, Swiper, SwiperSlide, Toolbar, Button, Icon } from "framework7-react";
 import { createAsyncPromise } from "../common/api/api.config";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { likesState, cartState, itemState, cartReadyState } from "../js/atoms";
+import { cartState, itemState, cartReadyState } from "../js/atoms";
 import ItemDesc from "../components/itemDesc";
 import ItemOption from "../components/itemOption";
 import PostReview from '../components/postReview';
@@ -41,27 +41,18 @@ const Item = (props) => {
       </Toolbar>}
       {item
         ? (
-          <div className="p-10 text-base mb-10 md:grid md:grid-cols-4 md:mt-20">
-            <div className="md:col-start-2 md:col-span-1">
-              <Row className="flex-col items-center">
-                <Col width="80">
-                  <Swiper pagination>
-                    <SwiperSlide><img
-                      src={`http://localhost:3000/img/small/${item.name}`}
-                      className="w-full mb-5"
-                    /></SwiperSlide>
-                    {imgs.length > 0
-                      ? imgs.map(img =>
-                        <SwiperSlide key={img}><img
-                          src={`http://localhost:3000/img/big/${item.name}/${img}`}
-                          className="w-full"
-                        /></SwiperSlide>)
-                      : null}
-                  </Swiper>
-                </Col>
-              </Row>
+          <div className="text-base mb-10 md:grid md:grid-cols-4 md:mt-20">
+            <div className="md:col-start-2 md:col-span-1 border-b mb-1">
+              <Swiper pagination>
+                {imgs.length > 0
+                  ? imgs.map(img =>
+                    <SwiperSlide key={img}><img
+                      src={`http://localhost:3000/img/big/${item.name}/${img}`}
+                    /></SwiperSlide>)
+                  : null}
+              </Swiper>
             </div>
-            <div className="md:col-end-4 md:col-span-1">
+            <div className="px-5 md:col-end-4 md:col-span-1">
               <ItemDesc></ItemDesc>
               <ItemOption></ItemOption>
             </div>

@@ -24,7 +24,7 @@ const QuanNBtn = ({ index, array, handleQuantity, handleDelete }) => {
   return (
     <Row className='items-center' gap='10'>
       <Col width="20">
-        <Button fill onClick={() => handleQuantity(index, array[index].quantity - 1)}>
+        <Button fill color='gray' onClick={() => handleQuantity(index, array[index].quantity - 1)}>
           <Icon f7="chevron_left" className="text-sm mb-2" />
         </Button>
       </Col>
@@ -35,15 +35,15 @@ const QuanNBtn = ({ index, array, handleQuantity, handleDelete }) => {
         />
       </Col>
       <Col width="20" className="flex-row items-center">
-        <Button fill onClick={() => handleQuantity(index, array[index].quantity + 1)}>
+        <Button fill color='gray' onClick={() => handleQuantity(index, array[index].quantity + 1)}>
           <Icon f7="chevron_right" className="text-sm mb-2" />
         </Button>
       </Col>
       <Col width="20" className="p-1">
-        <Button fill onClick={() => handleDelete(index)}
+        <Button fill color='gray' onClick={() => handleDelete(index)}
         >
-          X
-      </Button>
+          <Icon f7="multiply" className="text-sm mb-2" />
+        </Button>
       </Col>
     </Row>
   );

@@ -17,9 +17,12 @@ import {
 import React, { useState, useEffect } from "react";
 import { createAsyncPromise } from "../common/api/api.config";
 import ItemInList from "../components/itemInList";
+import { useRecoilValue } from "recoil"
+import { reloadTriggerState } from "../js/atoms";
 
 const HomePage = (props) => {
   const [items, setItems] = useState([]);
+  const reloadTrigger = useRecoilValue(reloadTriggerState);
   useEffect(async () => {
     const getItems = createAsyncPromise(
       "GET",
@@ -27,7 +30,7 @@ const HomePage = (props) => {
     );
     const data = await getItems();
     setItems(data.items);
-  }, []);
+  }, [reloadTrigger]);
   return (
     <Page name="home" className='md:flex md:flex-col md:items-end'>
       {/* Top Navbar */}

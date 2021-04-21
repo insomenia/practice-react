@@ -12,7 +12,7 @@ import { cartState } from "../js/atoms";
 
 const PurchaseSchema = Yup.object().shape({
   address: Yup.string(),
-  phone: Yup.string()
+  phone: Yup.string().matches(/^\d{3}-\d{3,4}-\d{4}$/, '전화번호의 양식을 확인해주세요')
 });
 
 const PurchasePage = () => {
@@ -67,8 +67,8 @@ const PurchasePage = () => {
               try {
                 const tossPayments = TossPayments("test_ck_O6BYq7GWPVvN5LOyqzLVNE5vbo1d");
                 await createAsyncPromise("POST", "/purchase")({
-                  address: useDef ? info.address : `${address} ${values.address}`,
-                  phone: useDef ? info.phone : values.phone,
+                  address: useDef ? info.address : address ? `${address} ${values.address}` : info.address,
+                  phone: useDef ? info.phone : values.phone || info.phone,
                 });
                 tossPayments.requestPayment(howToPay, {
                   amount: cart.total,
@@ -83,7 +83,7 @@ const PurchasePage = () => {
                 f7.dialog.close();
               } catch (error) {
                 f7.dialog.close();
-                f7.dialog.alert("결제 오류")
+                f7.dialog.alert(error?.response?.data || error?.message, "결제 오류")
                 //toast.get().setToastText(error?.response?.data || error?.message).openToast()
               }
             }}
@@ -172,7 +172,7 @@ const PurchasePage = () => {
                   <button
                     type="submit"
                     className="button button-fill button-large disabled:opacity-50"
-                    disabled={howToPay === '결제 방법을 선택하세요' || isSubmitting}
+                    disabled={howToPay === '결제 방법을 선택하세요' || isSubmitting || !isValid}
                   >
                     결제
                   </button>
