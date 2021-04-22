@@ -47,7 +47,6 @@ const PostReview = (props) => {
     }
     const data = await createAsyncPromise("GET", `/item/${item.itemId}`)();
     setReloadTrigger(x => x + 1);
-    setItem(data.item);
     communicating = false;
   }
 

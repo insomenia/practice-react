@@ -18,7 +18,6 @@ const ItemDesc = (props) => {
               : <Icon color='yellow' f7='star' key={`star${index}`} />)
           }
         </Col>
-        {/*<Col width='20' medium='20'>{item.grade ? item.grade.toFixed(2) : 0}</Col>*/}
       </Row>
 
       <div>{item.options[0].text} {item.options[0].price}원</div>

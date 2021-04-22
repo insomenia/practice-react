@@ -9,12 +9,12 @@ import { getDevice } from "../js/framework7-custom.js";
 const ItemOption = (props) => {
   const [cartReady, setCartReady] = useRecoilState(cartReadyState);
   const [sheetOpened, setSheetOpened] = useState(false);
-  if (getDevice().desktop) {
-    return (<>
-      <SelectOption></SelectOption>
-      <CartReadyList {...{ cartReady, setCartReady }}></CartReadyList>
-    </>);
-  }
+  // if (getDevice().desktop) {
+  //   return (<>
+  //     <SelectOption></SelectOption>
+  //     <CartReadyList {...{ cartReady, setCartReady }}></CartReadyList>
+  //   </>);
+  // }
   const [select, setSelect] = useRecoilState(selectState);
   return (
     <Sheet
@@ -24,9 +24,9 @@ const ItemOption = (props) => {
       onSheetClosed={() => setSheetOpened(false)}>
       <Toolbar>
         <div className="left"></div>
-        {cartReady.length > 0
-          ? <Button fill color='gray' onClick={() => setSelect(x => !x)}>{select ? "취소" : "옵션 추가"}</Button>
-          : null}
+        <Button color='black' onClick={() => setSelect(x => !x)}>
+          {select ? "취소" : (<div className='flex'><Icon f7='chevron_compact_down' />상품을 선택하세요</div>)}
+        </Button>
         <div className="right">
           <Link sheetClose><Icon f7='multiply' /></Link>
         </div>
