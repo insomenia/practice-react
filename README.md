@@ -1,83 +1,62 @@
-# Practice
+### 프론트엔드 과제 안내
 
+인썸니아 개발자 채용을 위한 프론트엔드 과제 입니다.
 
-### tailwindcss 사용 필 수 
+##### 과제 개요
 
-#### HeadlessUI
+과제는 간단한 형태의 커머스 앱 프론트엔드 개발입니다. 현재 과제로 주어지는 앱에는 사용자가 회원가입/로그인을 할 수 있고, 상품 목록을 확인할 수 있도록 되어있습니다. 
 
-### Form Validation 은 Formik / Yup 사용
+과제 수행자는 하나의 주제를 정하고 그 주제에 맞는 커머스 앱( ex. 꽃다발 구매 앱, 생필품 구매 앱 등)을 만들어야 합니다. 그리고 추가적으로 사용자가 장바구니에 상품을 담고 주문서를 작성해 제출할 수 있는 기능을 구현해야 합니다.  
 
-### Swiper 몇가지는 따로 갖고와서 써야함
-https://swiperjs.com/react
+##### 참고사항
 
+###### 백엔드API 사용
 
-### API URL 변경을 원할 시 .env.development를 변경해도 되지만,,
+프론트엔드에서 사용자 인증 및 상품 조회, 장바구니 관리, 주문서 작성을 구현할 수 있도록 백엔드 API를 구축해두었습니다. 아래 링크에서 백엔드 API의 명세를 확인할 수 있고, 직접 요청을 보내고 응답을 확인해볼 수도 있습니다. 
 
-```
-API_URL='http://192.168.68.116:3000'  yarn start
-```
+https://assignment.barber.work/api-docs/index.html
 
-## Routes
+###### 구현해야 하는 기능
 
+- 장바구니에 상품 담기
+- 장바구니에 담긴 상품 확인하기
+- 주문하기
+  - 주문자 정보 입력
+  - 주문 상품 확인
+  - 주문 금액 확인
 
+###### Typescript 기반의 React
 
+과제 프로젝트는 Typescript 기반의 React로 구성되어 있습니다.
 
-## NPM Scripts
+###### Framework7 React
 
-* 🔥 `start` - run development server
-* 🔧 `dev` - run development server
-* 🔧 `build` - build web app for production
-* 📱 `build-capacitor-ios` - build app and copy it to iOS capacitor project
-* 📱 `build-capacitor-android` - build app and copy it to Android capacitor project
+모바일 앱 개발을 위해 Framework7 프레임워크를 사용합니다. 아래 링크에서 필요한 컴포넌트를 임포트하여 사용할 수 있습니다.
 
-## WebPack
+https://framework7.io/react/
 
-There is a webpack bundler setup. It compiles and bundles all "front-end" resources. You should work only with files located in `/src` folder. Webpack config located in `build/webpack.config.js`.
+###### Yarn 사용
 
-Webpack has specific way of handling static assets (CSS files, images, audios). You can learn more about correct way of doing things on [official webpack documentation](https://webpack.js.org/guides/asset-management/).
+과제 프로젝트의 패키지 매니저로는 yarn을 사용합니다. 
 
-## PWA
+###### Tailwind CSS 사용
 
-This is a PWA. Don't forget to check what is inside of your `service-worker.js`. It is also recommended that you disable service worker (or enable "Update on reload") in browser dev tools during development.
-## Capacitor
+과제 프로젝트는 tailwind css를 사용합니다. inline-css의 사용은 최대한 지양해주시고 아래 링크를 참고하여 tailwind-css를 최대한 활용해주세요.
 
-This project created uses Capacitor. Check out [official Capacitor documentation](https://capacitorjs.com) for more examples and usage examples.
+https://tailwindcss.com/
 
+###### Formik / Yup 사용
 
+Form을 만들 때에는 Formik과 form validation을 위해 사용하는 Yup을 사용합니다. 아래 링크를 참고해주세요.
 
-## Assets
+Formik 공식 문서: https://formik.org/docs/overview
 
-Assets (icons, splash screens) source images located in `assets-src` folder. To generate your own icons and splash screen images, you will need to replace all assets in this directory with your own images (pay attention to image size and format), and run the following command in the project directory:
+Formik에 대한 블로그 글: https://krpeppermint100.medium.com/ts-formik-%EC%82%AC%EC%9A%A9%EB%B2%95-4f526888c81a
 
-```
-framework7 assets
-```
+Yup 문서: https://github.com/jquense/yup 
 
-Or launch UI where you will be able to change icons and splash screens:
+###### 화면 구성
 
-```
-framework7 assets --ui
-```
+과제에 세팅되어 있는 화면을 그대로 사용하지 않고 본인이 정한 주제에 맞는 구성으로 변경해주세요. 앱 사용자의 사용성 또한 고려되어야 합니다.
 
-## Capacitor Assets
-
-Capacitor assets are located in `resources` folder which is intended to be used with `cordova-res` tool. To generate  mobile apps assets run in terminal:
-```
-npx cordova-res
-```
-
-Check out [official cordova-res documentation](https://github.com/ionic-team/cordova-res) for more usage examples.
-
-## Documentation & Resources
-
-* [Framework7 Core Documentation](https://framework7.io/docs/)
-
-* [Framework7 React Documentation](https://framework7.io/react/)
-
-* [Framework7 Icons Reference](https://framework7.io/icons/)
-* [Community Forum](https://forum.framework7.io)
-
-## Support Framework7
-
-Love Framework7? Support project by donating or pledging on patreon:
-https://patreon.com/vladimirkharlampidi
+ 

@@ -4,12 +4,13 @@ import useAuth from '@hooks/useAuth';
 import LandingPage from '@pages/landing';
 import { destroyToken, getToken } from '@store';
 import { sleep } from '@utils/index';
+import { Auth } from 'aws-amplify';
 import { Link, Toolbar, View, Views } from 'framework7-react';
 import React, { useCallback, useEffect, useState } from 'react';
 
 const F7Views = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { currentUser, isAuthenticated, authenticateUser, unAuthenticateUser } = useAuth();
+  const { authenticateUser, unAuthenticateUser, currentUser, signOutUser } = useAuth();
 
   const logoutHandler = useCallback(async () => {
     try {
@@ -21,20 +22,19 @@ const F7Views = () => {
     }
   }, [unAuthenticateUser]);
 
+  const getCognitoUserSession = useCallback(async () => {
+    try {
+      const cognitoUser = await Auth.currentAuthenticatedUser();
+      await authenticateUser(cognitoUser);
+    } catch (error) {
+      unAuthenticateUser();
+    } finally {
+      setIsLoading(false);
+    }
+  }, [authenticateUser, unAuthenticateUser]);
+
   useEffect(() => {
-    (async function checkToken() {
-      try {
-        // const response = await refresh();
-        // saveToken(response.data);
-        authenticateUser(getToken());
-      } catch {
-        destroyToken();
-        unAuthenticateUser();
-      } finally {
-        await sleep(700);
-        setIsLoading(false);
-      }
-    })();
+    getCognitoUserSession();
   }, []);
 
   if (isLoading) {
@@ -62,8 +62,8 @@ const F7Views = () => {
 
   return (
     <>
-      <CustomPanel handleLogout={logoutHandler} isLoggedIn={isAuthenticated} currentUser={currentUser} />
-      {isAuthenticated ? loggedInViews() : loggedOutViews()}
+      <CustomPanel handleLogout={logoutHandler} isLoggedIn={currentUser.isAuthenticated} currentUser={currentUser} />
+      {currentUser.isAuthenticated ? loggedInViews() : loggedOutViews()}
     </>
   );
 };

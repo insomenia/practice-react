@@ -5,11 +5,20 @@ import capacitorApp from '@js/capacitor-app';
 import { getDevice } from '@js/framework7-custom';
 import { toast } from '@js/utils';
 import routes from '@routes';
+import { Auth } from 'aws-amplify';
 import { App, f7ready } from 'framework7-react';
 import React, { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
+
+Auth.configure({
+  aws_project_region: 'ap-northeast-2',
+  aws_cognito_region: 'ap-northeast-2',
+  aws_user_pools_web_client_id: '7p64rveq2l3fhk9h47mt80vo9u',
+  aws_user_pools_id: 'ap-northeast-2_4ktiDw5Su',
+  aws_cognito_identity_pool_id: 'ap-northeast-2:e88bd1dc-a15d-4e6a-bd56-715d10772d67',
+});
 
 const F7App = () => {
   const device = getDevice();

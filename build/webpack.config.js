@@ -64,6 +64,12 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false,
+        },
+      },
+      {
         test: /\.(mjs|js|jsx)$/,
         include: [resolvePath('src')],
         use: [
