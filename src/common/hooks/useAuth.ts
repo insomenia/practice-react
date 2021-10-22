@@ -1,27 +1,52 @@
-import { useRecoilState } from 'recoil';
-import { AuthState, Token } from '@constants';
-import { getCurrentUserFromToken } from '@utils';
-import { destroyToken, saveToken } from '@store';
-import { authSelector } from '@selectors';
+import Auth, { CognitoUser } from '@aws-amplify/auth';
+import { CurrentUser } from '@interfaces';
+import { useCallback } from 'react';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { currentUserState } from '@atoms';
+import { userMeApi } from '@api';
 
-const useAuth = () => {
-  const [currentUser, setCurrentUser] = useRecoilState<AuthState>(authSelector);
+type AuthenticateUser = (user: any) => Promise<void>;
+type UnAuthenticateUser = () => Promise<void>;
+type SignOutUser = () => Promise<void>;
 
-  const authenticateUser = ({ token, csrf }: Token) => {
-    saveToken({ token, csrf });
-    setCurrentUser({ token, csrf, currentUser: getCurrentUserFromToken(token) });
-  };
+type UseAuthHooks = () => {
+  authenticateUser: AuthenticateUser;
+  unAuthenticateUser: UnAuthenticateUser;
+  currentUser: CurrentUser;
+  signOutUser: SignOutUser;
+};
 
-  const unAuthenticateUser = () => {
-    destroyToken();
-    setCurrentUser({ token: null, csrf: null, currentUser: null });
-  };
+const useAuth: UseAuthHooks = () => {
+  const [currentUser, setCurrentUser] = useRecoilState<CurrentUser>(currentUserState);
+  const resetCurrentUser = useResetRecoilState(currentUserState);
+
+  // todo attributes
+  const authenticateUser = useCallback(
+    async (cognitoUser: any) => {
+
+      const { data: user } = await userMeApi();
+      setCurrentUser({ ...user, ...cognitoUser.attributes, isAuthenticated: true });
+    },
+    [setCurrentUser],
+  );
+
+  const unAuthenticateUser = useCallback(async () => {
+    resetCurrentUser();
+  }, [resetCurrentUser]);
+
+  const signOutUser = useCallback(async () => {
+    try {
+      await Auth.signOut();
+    } finally {
+      unAuthenticateUser();
+    }
+  }, [unAuthenticateUser]);
 
   return {
-    ...currentUser,
+    currentUser,
+    signOutUser,
     authenticateUser,
     unAuthenticateUser,
-    isAuthenticated: !!currentUser.token && !!currentUser.csrf,
   };
 };
 

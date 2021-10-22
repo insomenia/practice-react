@@ -4,7 +4,7 @@ import { Navbar, NavTitle, Page } from 'framework7-react';
 import React, { useCallback } from 'react';
 
 const MyPage = () => {
-  const { currentUser, isAuthenticated, unAuthenticateUser } = useAuth();
+  const { currentUser, unAuthenticateUser } = useAuth();
 
   const logoutHandler = useCallback(async () => {
     try {
@@ -41,7 +41,7 @@ const MyPage = () => {
             </div>
             <div className="w-full">
               <a href={`/users/${currentUser?.id}`}>
-                <h1 className="text-xl font-bold text-gray-900">{isAuthenticated ? currentUser.name : '인썸니아'}</h1>
+                <h1 className="text-xl font-bold text-gray-900">{currentUser.isAuthenticated ? currentUser.name : '인썸니아'}</h1>
                 <p className="mt-1 text-xs font-medium text-gray-500">
                   팔로워 <span className=" text-gray-900">0</span> | 팔로잉 <span className=" text-gray-900">0</span>
                 </p>
@@ -153,7 +153,7 @@ const MyPage = () => {
                 </div>
               </a>
             </li>
-            {isAuthenticated ? (
+            {currentUser.isAuthenticated ? (
               <li>
                 <a href="#" onClick={logoutHandler} className="block hover:bg-gray-50">
                   <div className="flex items-center px-4 py-4 sm:px-6">

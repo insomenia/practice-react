@@ -1,10 +1,10 @@
-import { Category, Item, Token } from '@constants';
+import { Category, Token } from '@constants';
+import { CurrentUser } from '@interfaces';
 import { getToken } from '@store';
-import { PlainAPI, API, VERSION, API_URL } from './api.config';
-import { ApiService } from './api.service';
+import { API, API_URL, VERSION } from './api.config';
 
 export const refresh = (): Promise<{ data: Token }> =>
-  PlainAPI.post(
+  API.post(
     '/token',
     {},
     {
@@ -12,10 +12,11 @@ export const refresh = (): Promise<{ data: Token }> =>
     },
   );
 
-export const get = (url: string, params: any) => PlainAPI.get(url, params);
-export const loginAPI = (params: any) => PlainAPI.post('/login', { user: params });
-export const signupAPI = (params: any) => PlainAPI.post('/signup', { user: params });
+export const get = (url: string, params: any) => API.get(url, params);
+export const loginAPI = (params: any) => API.post('/login', { user: params });
+export const signupAPI = (params: any) => API.post('/signup', { user: params });
 export const logoutAPI = () => API.delete('/logout');
+export const userMeApi = () => API.get<CurrentUser>('/users/me');
 
 // export const {
 //   query: getItems,
