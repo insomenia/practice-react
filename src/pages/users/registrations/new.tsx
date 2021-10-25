@@ -90,9 +90,7 @@ const SignUpPage: React.FC = () => {
 
       // signup api 시도
       try {
-        // TODO signup api
         const { password, password_confirmation, ...apiSignUpParams } = signUpParams;
-        // await signupAPI(apiSignUpParams);
         await signupAPI(signUpParams);
         isSignUpSuccess = true;
         message = '성공적으로 가입 하였습니다';

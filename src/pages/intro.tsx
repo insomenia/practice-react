@@ -53,9 +53,7 @@ const IntroPage = (props) => {
 
   useEffect(() => {
     f7ready(async (f7) => {
-      setSlides(
-        zip(sampleSize(images, 3), ['인썸니아의 사전<br/> 신입 교육용 앱입니다.', '여러분 파이팅!', '도큐 잘보세요!']),
-      );
+      setSlides(zip(sampleSize(images, 3), ['인썸니아의 사전<br/> 신입 교육용 앱입니다.']));
     });
   }, []);
 
